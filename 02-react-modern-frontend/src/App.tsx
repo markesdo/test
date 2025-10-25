@@ -1,12 +1,31 @@
-// Your App component will go here
+import { useState } from "react";
+import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
+import WeatherDisplay from "./components/WeatherDisplay";
+import FavoritesList from "./components/FavoritesList";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [searchedCity, setSearchedCity] = useState("");
+
+  const handleSearch = (city: string) => {
+    setSearchedCity(city);
+    console.log("Searching for:", city);
+    // Weather API call will be implemented later
+  };
+
   return (
-    <div>
-      <h1>React Modern Frontend</h1>
-      <p>Follow the prompts in README.md to build your application!</p>
+    <div className="app">
+      <Header />
+      <div className="app-container">
+        <main className="main-content">
+          <SearchBar onSearch={handleSearch} />
+          <WeatherDisplay />
+        </main>
+        <FavoritesList />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
