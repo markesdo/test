@@ -12,6 +12,17 @@
   animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   animation-delay: 0.4s;
   will-change: transform, opacity;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.forecast-display:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .forecast-title {
@@ -38,6 +49,8 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
   padding-bottom: 0.5rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .forecast-container::-webkit-scrollbar {
@@ -55,7 +68,8 @@
 }
 
 .forecast-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
 }
 
 .forecast-card {
@@ -116,9 +130,10 @@
 }
 
 .forecast-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
-  border-color: rgba(59, 130, 246, 0.4);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.4),
+    0 0 0 1px rgba(59, 130, 246, 0.3) inset;
+  border-color: rgba(59, 130, 246, 0.5);
 }
 
 .forecast-day {
@@ -143,7 +158,8 @@
 }
 
 .forecast-card:hover .forecast-icon {
-  transform: scale(1.1);
+  transform: scale(1.15) rotate(5deg);
+  filter: drop-shadow(0 6px 16px rgba(59, 130, 246, 0.5));
 }
 
 .forecast-temps {
