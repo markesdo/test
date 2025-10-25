@@ -6,6 +6,7 @@ import ForecastDisplay from "./components/ForecastDisplay";
 import FavoritesList from "./components/FavoritesList";
 import useWeather from "./hooks/useWeather";
 import useGeolocation from "./hooks/useGeolocation";
+import useFavorites from "./hooks/useFavorites";
 import "./App.css";
 import "./animations.css";
 import "./backgrounds.css";
@@ -20,10 +21,21 @@ const App = () => {
     fetchWeatherByLocation,
   } = useWeather();
   const { getCurrentLocation } = useGeolocation();
+  const { favorites, isFavorite, toggleFavorite } = useFavorites();
   const [locationError, setLocationError] = useState("");
 
   const handleSearch = (city: string) => {
     fetchWeather(city);
+  };
+
+  const handleFavoriteClick = (city: string) => {
+    fetchWeather(city);
+  };
+
+  const handleToggleFavorite = () => {
+    if (weather) {
+      toggleFavorite(weather.city);
+    }
   };
 
   const handleLocationRequest = async () => {
@@ -55,10 +67,15 @@ const App = () => {
             weather={weather}
             loading={loading}
             error={displayError}
+            isFavorite={weather ? isFavorite(weather.city) : false}
+            onToggleFavorite={handleToggleFavorite}
           />
           <ForecastDisplay forecast={forecast} loading={loading} />
         </main>
-        <FavoritesList />
+        <FavoritesList
+          favorites={favorites}
+          onCityClick={handleFavoriteClick}
+        />
       </div>
     </div>
   );
