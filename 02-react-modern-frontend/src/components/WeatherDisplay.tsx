@@ -12,10 +12,69 @@ export interface WeatherData {
 }
 
 interface WeatherDisplayProps {
-  weather?: WeatherData;
+  weather: WeatherData | null;
+  loading: boolean;
+  error: string;
 }
 
-const WeatherDisplay = ({ weather }: WeatherDisplayProps) => {
+const WeatherDisplay = ({ weather, loading, error }: WeatherDisplayProps) => {
+  // Loading state
+  if (loading) {
+    return (
+      <div className="weather-display">
+        <div className="weather-placeholder">
+          <svg
+            width="80"
+            height="80"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="weather-icon-loading"
+          >
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+          <h2 className="placeholder-title">Loading weather data...</h2>
+          <p className="placeholder-text">
+            Please wait while we fetch the weather information
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="weather-display">
+        <div className="weather-placeholder">
+          <svg
+            width="80"
+            height="80"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="weather-icon-error"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <h2 className="placeholder-title error-title">
+            Oops! Something went wrong
+          </h2>
+          <p className="placeholder-text error-message">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Empty state (no data yet)
   if (!weather) {
     return (
       <div className="weather-display">

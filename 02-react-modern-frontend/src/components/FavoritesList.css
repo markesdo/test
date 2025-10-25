@@ -1,19 +1,45 @@
 .favorites-list {
-  background: white;
-  border-radius: 16px;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 28px;
   padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+              0 0 0 1px rgba(255, 255, 255, 0.05) inset;
   min-height: 400px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation-delay: 0.3s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+.favorites-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(16, 185, 129, 0.6),
+    transparent);
 }
 
 .favorites-title {
   font-size: 1.5rem;
-  color: #333;
+  color: #FFFFFF;
   margin-bottom: 1.5rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5),
+               0 0 20px rgba(16, 185, 129, 0.3);
 }
 
 .favorites-placeholder {
@@ -23,20 +49,23 @@
   justify-content: center;
   text-align: center;
   padding: 2rem 1rem;
-  color: #999;
+  color: rgba(255, 255, 255, 0.9);
   min-height: 300px;
 }
 
 .favorites-icon {
-  color: #ff6b9d;
+  color: #10B981;
   margin-bottom: 1rem;
-  opacity: 0.6;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.5));
+  animation: pulse 3s ease-in-out infinite;
 }
 
 .favorites-placeholder-text {
   font-size: 0.875rem;
   line-height: 1.6;
-  max-width: 200px;
+  max-width: 220px;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 @media (max-width: 1024px) {

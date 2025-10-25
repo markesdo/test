@@ -1,39 +1,54 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
-import WeatherDisplay, { WeatherData } from "./components/WeatherDisplay";
+import WeatherDisplay from "./components/WeatherDisplay";
 import FavoritesList from "./components/FavoritesList";
+import useWeather from "./hooks/useWeather";
+import useGeolocation from "./hooks/useGeolocation";
 import "./App.css";
-
-// MOCKUP DATA FOR TESTING - Remove when API is integrated
-const mockWeatherData: WeatherData = {
-  city: "Vienna",
-  country: "AT",
-  temperature: 22,
-  feelsLike: 20,
-  description: "clear sky",
-  humidity: 65,
-  windSpeed: 3.5,
-  icon: "01d", // clear sky day icon
-};
+import "./animations.css";
+import "./backgrounds.css";
 
 const App = () => {
-  const [searchedCity, setSearchedCity] = useState("");
+  const { weather, loading, error, fetchWeather, fetchWeatherByLocation } =
+    useWeather();
+  const { getCurrentLocation } = useGeolocation();
+  const [locationError, setLocationError] = useState("");
 
   const handleSearch = (city: string) => {
-    setSearchedCity(city);
-    console.log("Searching for:", city);
-    // Weather API call will be implemented later
+    fetchWeather(city);
   };
+
+  const handleLocationRequest = async () => {
+    setLocationError("");
+    try {
+      const coords = await getCurrentLocation();
+      await fetchWeatherByLocation(coords.latitude, coords.longitude);
+    } catch (err) {
+      if (err instanceof Error) {
+        setLocationError(err.message);
+      } else {
+        setLocationError("Failed to get your location");
+      }
+    }
+  };
+
+  const displayError = error || locationError;
 
   return (
     <div className="app">
       <Header />
       <div className="app-container">
         <main className="main-content">
-          <SearchBar onSearch={handleSearch} />
-          {/* Pass mockWeatherData prop to test the weather card */}
-          <WeatherDisplay weather={mockWeatherData} />
+          <SearchBar
+            onSearch={handleSearch}
+            onLocationRequest={handleLocationRequest}
+          />
+          <WeatherDisplay
+            weather={weather}
+            loading={loading}
+            error={displayError}
+          />
         </main>
         <FavoritesList />
       </div>

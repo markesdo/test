@@ -1,16 +1,38 @@
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   padding: 2rem;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(59, 130, 246, 0.8),
+    transparent);
 }
 
 .header-title {
-  color: white;
+  color: #FFFFFF;
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.5px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5),
+               0 0 30px rgba(59, 130, 246, 0.3);
+  animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @media (max-width: 768px) {
