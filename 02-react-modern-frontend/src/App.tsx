@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import WeatherDisplay from "./components/WeatherDisplay";
+import ForecastDisplay from "./components/ForecastDisplay";
 import FavoritesList from "./components/FavoritesList";
 import useWeather from "./hooks/useWeather";
 import useGeolocation from "./hooks/useGeolocation";
@@ -10,8 +11,14 @@ import "./animations.css";
 import "./backgrounds.css";
 
 const App = () => {
-  const { weather, loading, error, fetchWeather, fetchWeatherByLocation } =
-    useWeather();
+  const {
+    weather,
+    forecast,
+    loading,
+    error,
+    fetchWeather,
+    fetchWeatherByLocation,
+  } = useWeather();
   const { getCurrentLocation } = useGeolocation();
   const [locationError, setLocationError] = useState("");
 
@@ -49,6 +56,7 @@ const App = () => {
             loading={loading}
             error={displayError}
           />
+          <ForecastDisplay forecast={forecast} loading={loading} />
         </main>
         <FavoritesList />
       </div>
